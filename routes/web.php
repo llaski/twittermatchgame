@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'PagesController@home');
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('games/start', 'GamesController@start');
 });

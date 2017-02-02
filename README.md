@@ -15,3 +15,18 @@ Basic version
         - right - handle links to tweet and its no longer draggable
     - Once all are complete, show # of attempts needed to complete matches
     - enter name/email for score
+
+## Backend Features
+
+- serve home page
+- get list of matching twitter handles and tweets
+- submit results with name and email
+
+## Frontend Features
+
+- click start btn
+- request twitter data
+- display twitter data
+- drag n drop
+- keep track of # of wrong matches
+- display results once all handles are complete
