@@ -26,7 +26,7 @@ Basic version
 
 - click start btn
 - request twitter data
-- display twitter data
+- display twitter data (and mix it up)
 - drag n drop
 - keep track of # of wrong matches
 - display results once all handles are complete

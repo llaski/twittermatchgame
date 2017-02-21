@@ -4,5 +4,5 @@ namespace App\Twitter;
 
 interface Twitter {
 
-    public function generateGameData($numItems = 10);
+    public function getTweets($numTweets = 10);
 }

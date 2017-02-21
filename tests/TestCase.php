@@ -3,13 +3,14 @@
 namespace Tests;
 
 use App\Exceptions\Handler;
+use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Exception;
+use Tests\TestAssertionHelpers;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, TestAssertionHelpers;
 
     protected function disableExceptionHandling()
     {

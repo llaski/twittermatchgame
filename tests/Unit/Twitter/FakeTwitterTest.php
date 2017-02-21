@@ -10,18 +10,24 @@ class FakeTwitterTest extends TestCase
     /**
      * @test
      */
-    function generates_starting_data_with_10_items()
+    function gets_10_tweets()
     {
         $fakeTwitter = new FakeTwitter;
 
-        $data = $fakeTwitter->generateGameData(10);
-
+        $data = $fakeTwitter->getTweets();
+        $this->assertArrayItemsHaveKeys($data, ['handle', 'tweet']);
         $this->assertCount(10, $data);
+    }
 
-        foreach ($data as $item) {
-            $this->assertArrayHasKey('handle', $item);
-            $this->assertArrayHasKey('tweet', $item);
-        }
+    /**
+     * @test
+     */
+    function gets_5_tweets()
+    {
+        $fakeTwitter = new FakeTwitter;
 
+        $data = $fakeTwitter->getTweets(5);
+        $this->assertArrayItemsHaveKeys($data, ['handle', 'tweet']);
+        $this->assertCount(5, $data);
     }
 }

@@ -22,3 +22,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Game::class, function (Faker\Generator $faker) {
+    return [
+        'tweets' => json_encode((new \App\Twitter\FakeTwitter)->tweets),
+        'total_questions' => count((new \App\Twitter\FakeTwitter)->tweets)
+    ];
+});

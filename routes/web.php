@@ -14,5 +14,6 @@
 Route::get('/', 'PagesController@home');
 
 Route::group(['prefix' => 'api'], function () {
-    Route::get('games/start', 'GamesController@start');
+    Route::post('games', 'GamesController@store');
+    Route::put('games/{id}', 'GamesController@update');
 });
