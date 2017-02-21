@@ -23,10 +23,12 @@ class GamesController extends Controller
         $game = Game::findOrFail($id);
 
         $this->validate(request(), [
-            'results' => 'required|array|size:' . $game->total_questions
+            'results' => 'required|array|size:' . $game->total_questions,
+            'email' => 'required|email',
+            'name' => 'required|min:2'
         ]);
 
-        $game->finalizeResults(request('results'));
+        $game->finalizeResults(request('results'), request('email'), request('name'));
 
         return response()->json([
             'total_questions' => (int) $game->total_questions,

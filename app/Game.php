@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    protected $fillable = ['tweets', 'total_questions', 'num_correct_answers'];
+    protected $fillable = ['tweets', 'total_questions', 'num_correct_answers', 'email', 'name'];
 
     protected $appends = ['percentage_correct'];
 
@@ -22,9 +22,11 @@ class Game extends Model
         ]);
     }
 
-    public function finalizeResults(array $answers)
+    public function finalizeResults(array $answers, string $email, string $name)
     {
         $this->answers = json_encode($answers);
+        $this->email = $email;
+        $this->name = $name;
 
         //Determine what answers are right
         $this->num_correct_answers = collect($answers)

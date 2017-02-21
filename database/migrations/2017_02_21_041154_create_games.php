@@ -19,6 +19,8 @@ class CreateGames extends Migration
             $table->smallInteger('total_questions')->unsigned();
             $table->text('answers')->nullable();
             $table->smallInteger('num_correct_answers')->unsigned()->nullable();
+            $table->string('email')->nullable();
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }

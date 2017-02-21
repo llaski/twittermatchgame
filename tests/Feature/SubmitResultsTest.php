@@ -41,7 +41,9 @@ class SubmitResultsTest extends TestCase
                 '@GolfMatchApp' => '',
                 '@katyperry' => '',
                 '@TrackManGolf' => ''
-            ]
+            ],
+            'email' => 'johndoe@example.com',
+            'name' => 'John Doe'
         ]);
 
         $response->assertStatus(200)
@@ -50,6 +52,8 @@ class SubmitResultsTest extends TestCase
                 'num_correct_answers' => 5,
                 'percentage_correct' => 50
             ]);
+        $this->assertEquals('johndoe@example.com', $game->fresh()->email);
+        $this->assertEquals('John Doe', $game->fresh()->name);
     }
 
     /** @test */
@@ -71,7 +75,9 @@ class SubmitResultsTest extends TestCase
                 '@GolfMatchApp' => '',
                 '@katyperry' => '',
                 '@TrackManGolf' => ''
-            ]
+            ],
+            'email' => 'johndoe@example.com',
+            'name' => 'John Doe'
         ]);
 
         $response->assertStatus(200)
@@ -80,6 +86,8 @@ class SubmitResultsTest extends TestCase
                 'num_correct_answers' => 1,
                 'percentage_correct' => 10
             ]);
+        $this->assertEquals('johndoe@example.com', $game->fresh()->email);
+        $this->assertEquals('John Doe', $game->fresh()->name);
     }
 
     /**
@@ -121,5 +129,111 @@ class SubmitResultsTest extends TestCase
             ]]);
 
         $this->assertValidationError('results', $response);
+    }
+
+    /**
+     * @test
+     */
+    function an_email_is_required_to_submit_results()
+    {
+        $game = factory(Game::class)->create();
+
+        $response = $this->json('PUT', '/api/games/' . $game->id, [
+            'results' => [
+                '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
+                '@PGATOUR' => 'Jerry Rice is pretty good at golf, too.',
+                '@Yankees' => 'Ready for April yet? Here\'s everything you need to know about the State of the Yankees leading into the 2017 season: http://atmlb.com/2l1KKlr',
+                '@GolfDigest' => 'The 2017 Hot List is HERE: http://glfdig.st/5Dz7DKk',
+                '@RickieFowler' => 'Great day at the Bear\'s Club for the @jacknicklaus Children\'s Healthcare Foundation!! #TheJake',
+                '@golf_com' => '',
+                '@McIlroyRory' => '',
+                '@GolfMatchApp' => '',
+                '@katyperry' => '',
+                '@TrackManGolf' => ''
+            ],
+            'name' => 'John Doe'
+        ]);
+
+        $this->assertValidationError('email', $response);
+    }
+
+    /**
+     * @test
+     */
+    function a_valid_email_is_required_to_submit_results()
+    {
+        $game = factory(Game::class)->create();
+
+        $response = $this->json('PUT', '/api/games/' . $game->id, [
+            'results' => [
+                '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
+                '@PGATOUR' => 'Jerry Rice is pretty good at golf, too.',
+                '@Yankees' => 'Ready for April yet? Here\'s everything you need to know about the State of the Yankees leading into the 2017 season: http://atmlb.com/2l1KKlr',
+                '@GolfDigest' => 'The 2017 Hot List is HERE: http://glfdig.st/5Dz7DKk',
+                '@RickieFowler' => 'Great day at the Bear\'s Club for the @jacknicklaus Children\'s Healthcare Foundation!! #TheJake',
+                '@golf_com' => '',
+                '@McIlroyRory' => '',
+                '@GolfMatchApp' => '',
+                '@katyperry' => '',
+                '@TrackManGolf' => ''
+            ],
+            'email' => 'invalid-email',
+            'name' => 'John Doe'
+        ]);
+
+        $this->assertValidationError('email', $response);
+    }
+
+    /**
+     * @test
+     */
+    function an_name_is_required_to_submit_results()
+    {
+        $game = factory(Game::class)->create();
+
+        $response = $this->json('PUT', '/api/games/' . $game->id, [
+            'results' => [
+                '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
+                '@PGATOUR' => 'Jerry Rice is pretty good at golf, too.',
+                '@Yankees' => 'Ready for April yet? Here\'s everything you need to know about the State of the Yankees leading into the 2017 season: http://atmlb.com/2l1KKlr',
+                '@GolfDigest' => 'The 2017 Hot List is HERE: http://glfdig.st/5Dz7DKk',
+                '@RickieFowler' => 'Great day at the Bear\'s Club for the @jacknicklaus Children\'s Healthcare Foundation!! #TheJake',
+                '@golf_com' => '',
+                '@McIlroyRory' => '',
+                '@GolfMatchApp' => '',
+                '@katyperry' => '',
+                '@TrackManGolf' => ''
+            ],
+            'email' => 'johndoe@example.com',
+        ]);
+
+        $this->assertValidationError('name', $response);
+    }
+
+    /**
+     * @test
+     */
+    function a_valid_name_is_required_to_submit_results()
+    {
+        $game = factory(Game::class)->create();
+
+        $response = $this->json('PUT', '/api/games/' . $game->id, [
+            'results' => [
+                '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
+                '@PGATOUR' => 'Jerry Rice is pretty good at golf, too.',
+                '@Yankees' => 'Ready for April yet? Here\'s everything you need to know about the State of the Yankees leading into the 2017 season: http://atmlb.com/2l1KKlr',
+                '@GolfDigest' => 'The 2017 Hot List is HERE: http://glfdig.st/5Dz7DKk',
+                '@RickieFowler' => 'Great day at the Bear\'s Club for the @jacknicklaus Children\'s Healthcare Foundation!! #TheJake',
+                '@golf_com' => '',
+                '@McIlroyRory' => '',
+                '@GolfMatchApp' => '',
+                '@katyperry' => '',
+                '@TrackManGolf' => ''
+            ],
+            'email' => 'johndoe@example.com',
+            'name' => 'L'
+        ]);
+
+        $this->assertValidationError('name', $response);
     }
 }

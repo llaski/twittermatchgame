@@ -18,15 +18,20 @@ Basic version
 
 ## Backend Features
 
-- serve home page
-- get list of matching twitter handles and tweets
-- submit results with name and email
+- [x] Serve home page
+- [x] Get list of matching twitter handles and tweets
+- [x] Submit results with name and email
 
 ## Frontend Features
 
-- click start btn
-- request twitter data
-- display twitter data (and mix it up)
-- drag n drop
-- keep track of # of wrong matches
-- display results once all handles are complete
+- [ ] click start btn
+- [ ] request twitter data
+- [ ] display twitter data (and mix it up)
+- [ ] drag n drop
+- [ ] keep track of # of wrong matches
+- [ ] display results once all handles are complete
+
+- [ ] jQuery Version w/ tests
+- [ ] Vue.js Version w/ tests
+- [ ] ReactJS Version w/ tests
+- [ ] ReactJS/Redux Version w/ tests

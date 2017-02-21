@@ -57,7 +57,7 @@ class GameTest extends TestCase
 
         $game->finalizeResults([
             '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.'
-        ]);
+        ], 'johndoe@example.com', 'John Doe');
 
         $this->assertIsJSON($game->getOriginal('answers'));
         $this->assertCount(1, $game->answers);
@@ -75,7 +75,7 @@ class GameTest extends TestCase
         $game->finalizeResults([
             '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
             '@incorrect' => 'this is not a correct answer'
-        ]);
+        ], 'johndoe@example.com', 'John Doe');
 
         $this->assertIsJSON($game->getOriginal('answers'));
         $this->assertCount(2, $game->answers);
