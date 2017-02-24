@@ -10,7 +10,6 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/app.css">
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -78,6 +77,7 @@
                 <br>
 
                 <button class="btn">Get Started</button>
+                <h2>{{ csrf_token() }}</h2>
             </div>
         </div>
 

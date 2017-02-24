@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Twitter\Twitter;
+use App\Twitter\TwitterAPI;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
@@ -25,6 +27,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // $this->app->bind(Twitter::class, function() {
+        //     return new Twitter(config('services.stripe.secret'));
+        // });
+
+        $this->app->bind(Twitter::class, TwitterAPI::class);
+
         if ($this->app->environment('local', 'testing')) {
             $this->app->register(DuskServiceProvider::class);
         }

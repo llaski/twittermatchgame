@@ -21,6 +21,7 @@
 $('.btn').on('click', () => {
     fetch('/api/games', {
         method: 'post',
+        credentials: 'include',
         headers: new Headers({
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')

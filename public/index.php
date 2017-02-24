@@ -7,6 +7,17 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+if ( ! function_exists('pp'))
+{
+    function pp($data, $die = false)
+    {
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+        if ($die) exit;
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
