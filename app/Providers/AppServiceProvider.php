@@ -27,10 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->app->bind(Twitter::class, function() {
-        //     return new Twitter(config('services.stripe.secret'));
-        // });
-
         $this->app->bind(Twitter::class, TwitterAPI::class);
 
         if ($this->app->environment('local', 'testing')) {
