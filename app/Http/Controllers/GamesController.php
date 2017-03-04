@@ -12,9 +12,22 @@ class GamesController extends Controller
     {
         $game = Game::generate();
 
+        //Cleanup
+        $tweets = collect($game->tweets)->reduce(function($carry, $tweet){
+            return $carry + [$tweet['handle'] => $tweet['tweet']];
+        }, []);
+
+        $keys = array_keys($tweets);
+        shuffle($keys);
+
+        $randomizedTweets = array();
+        foreach ($keys as $key) {
+            $randomizedTweets[$key] = $tweets[$key];
+        }
+
         return response()->json([
             'id' => $game->id,
-            'tweets' => $game->tweets
+            'tweets' => $randomizedTweets
         ], 201);
     }
 

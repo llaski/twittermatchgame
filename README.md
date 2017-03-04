@@ -16,6 +16,10 @@ Basic version
     - Once all are complete, show # of attempts needed to complete matches
     - enter name/email for score
 
+## Frontend Development
+
+I want to be able to run JavaScript tests on the command line
+
 ## Backend Features
 
 - [x] Serve home page

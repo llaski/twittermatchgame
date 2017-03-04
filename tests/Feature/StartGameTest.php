@@ -31,7 +31,7 @@ class StartGameTest extends TestCase
         $response->assertStatus(201);
         $this->seeJsonStructure([
             'id',
-            'tweets.*' => [
+            'tweets' => [
                 'handle',
                 'tweet'
             ]

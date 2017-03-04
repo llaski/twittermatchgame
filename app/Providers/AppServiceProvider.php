@@ -27,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(Twitter::class, TwitterAPI::class);
+        $this->app->bind(Twitter::class, \App\Twitter\FakeTwitter::class);
+        // $this->app->bind(Twitter::class, TwitterAPI::class);
 
         if ($this->app->environment('local', 'testing')) {
             $this->app->register(DuskServiceProvider::class);

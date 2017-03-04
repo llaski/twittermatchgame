@@ -1,9 +1,17 @@
+.drag-item {
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 0 5px 10px;
+}
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+.handle-item {
+    font-size: 1.5rem;
+    background: #4099FF;
+}
 
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.drag-item p {
+    margin: 0;
+}
