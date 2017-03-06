@@ -47,7 +47,8 @@ class Game extends Model
 
         //Update rank
         //@TODO Temp doing this in PHP, ideally done in MySQL but SQLite doesn't support temporary variables... (i.e... SET @rank := 0;)
-        self::orderBy('num_correct_answers', 'desc')
+        self::whereNotNull('time')
+            ->orderBy('num_correct_answers', 'desc')
             ->orderBy('time', 'desc')
             ->orderBy('created_at', 'asc')
             ->each(function($game, $index) {
@@ -70,7 +71,8 @@ class Game extends Model
 
     public static function topTenRankedGames()
     {
-        return self::orderBy('num_correct_answers', 'desc')
+        return self::whereNotNull('time')
+            ->orderBy('num_correct_answers', 'desc')
             ->orderBy('time', 'desc')
             ->orderBy('created_at', 'asc')
             ->limit(10)

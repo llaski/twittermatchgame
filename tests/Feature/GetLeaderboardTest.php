@@ -45,4 +45,19 @@ class GetGamesTest extends TestCase
 
         $this->assertCount(10, $response->decodeResponseJson()['games']);
     }
+
+    /** @test */
+    public function only_show_games_that_have_been_completed()
+    {
+        $this->disableExceptionHandling();
+
+        factory(Game::class)->create();
+
+        factory(Game::class)->states('completed')->create();
+
+        $response = $this->json('GET', '/api/leaderboard');
+
+        $response->assertStatus(200);
+        $this->assertCount(1, $response->decodeResponseJson()['games']);
+    }
 }
