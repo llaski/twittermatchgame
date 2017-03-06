@@ -17,8 +17,8 @@
 
 ## Cleanup/Add Ons
 
-- [ ] Store rank in database and update on game submission instead of always needing to query for it
-- [ ] Visual error message instead of console.error for api requests
+- [X] Store rank in database and update on game submission instead of always needing to query for it
+- [X] Visual error message instead of console.error for api requests
 - [ ] Setup live site
 
 -----
@@ -27,3 +27,4 @@
 - [ ] Add JS Tests
 - [ ] Better Visual Design
 - [ ] Navigation to always view leaderboard w/out needing to play a game
+- [ ] Move ranking logic into separate job or its own mysql stored procedure. Basically better option than running individual queries for all games.

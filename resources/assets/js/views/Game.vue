@@ -4,13 +4,17 @@
         <div class="row">
             <div class="col">
                 <h1 class="text-center" style="margin-top: 20px;">Twitter Match Game</h1>
-                <p class="text-right">{{ timeRemaining | secsToMins }} Remaining</p>
+                <p class="text-right" v-if="!globalError">{{ timeRemaining | secsToMins }} Remaining</p>
             </div>
         </div>
 
         <div class="text-center" v-if="loading">
             <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
             <span class="sr-only">Loading...</span>
+        </div>
+
+        <div class="alert alert-danger text-center" role="alert" v-if="globalError">
+          {{ globalError }}
         </div>
 
         <div v-if="!loading" v-for="(item, index) in gameDataTweets" class="container game-container">
@@ -69,7 +73,8 @@
                     email: '',
                     time: null,
                     results: []
-                })
+                }),
+                globalError: null
             };
         },
 
@@ -83,7 +88,7 @@
             },
 
             gameComplete() {
-                return this.timeRemaining <= 0 || this.allItemsMatched;
+                return !this.globalError && (this.timeRemaining <= 0 || this.allItemsMatched);
             }
         },
 
@@ -99,7 +104,8 @@
                     this.initDroppable();
                 });
             }).catch(error => {
-                console.error(error);
+                this.loading = false;
+                this.globalError = error;
             });
         },
 

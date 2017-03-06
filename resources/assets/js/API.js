@@ -11,7 +11,14 @@ export default {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             }),
             body: JSON.stringify({})
-        }).then(response => response.json());
+        }).then(response => {
+            return response.json().catch(error => {
+                //Error parsing json
+                return new Promise((resolve, reject) => {
+                    reject('Sorry about that, were not sure what happened! Please try again later.');
+                })
+            });
+        });
     },
 
     getLeaderboard() {
@@ -21,6 +28,13 @@ export default {
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
-        }).then(response => response.json());
+        }).then(response => {
+            return response.json().catch(error => {
+                //Error parsing json
+                return new Promise((resolve, reject) => {
+                    reject('Sorry about that, were not sure what happened! Please try again later.');
+                })
+            });
+        });
     }
 }

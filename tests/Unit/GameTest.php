@@ -95,7 +95,7 @@ class GameTest extends TestCase
             '@incorrect' => 'this is not a correct answer'
         ], 'johndoe@example.com', 'John Doe', 5 * 60);
 
-        $this->assertEquals(1, $game->rank);
+        $this->assertEquals(1, $game->fresh()->rank);
     }
 
     /**
@@ -117,8 +117,8 @@ class GameTest extends TestCase
             '@PGATOUR' => 'Jerry Rice is pretty good at golf, too.'
         ], 'johndoe@example.com', 'John Doe', 5 * 55);
 
-        $this->assertEquals(2, $gameWithRankTwo->rank);
-        $this->assertEquals(1, $gameWithRankOne->rank);
+        $this->assertEquals(2, $gameWithRankTwo->fresh()->rank);
+        $this->assertEquals(1, $gameWithRankOne->fresh()->rank);
     }
 
     /**
@@ -140,8 +140,8 @@ class GameTest extends TestCase
             '@PGATOUR' => 'Jerry Rice is pretty good at golf, too.'
         ], 'johndoe@example.com', 'John Doe', 5 * 60);
 
-        $this->assertEquals(2, $gameWithRankTwo->rank);
-        $this->assertEquals(1, $gameWithRankOne->rank);
+        $this->assertEquals(2, $gameWithRankTwo->fresh()->rank);
+        $this->assertEquals(1, $gameWithRankOne->fresh()->rank);
     }
 
     /**

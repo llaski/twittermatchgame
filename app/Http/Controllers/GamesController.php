@@ -47,7 +47,7 @@ class GamesController extends Controller
             'time' => 'required|numeric|min:0|max:300'
         ]);
 
-        $game->finalizeResults(request('results'), request('email'), request('name'), request('time'));
+        $game = $game->finalizeResults(request('results'), request('email'), request('name'), request('time'));
 
         return response()->json([
             'id' => (int) $game->id,

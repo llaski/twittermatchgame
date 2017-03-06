@@ -995,18 +995,28 @@ module.exports = function bind(fn, thisArg) {
             }),
             body: JSON.stringify({})
         }).then(function (response) {
-            return response.json();
+            return response.json().catch(function (error) {
+                //Error parsing json
+                return new Promise(function (resolve, reject) {
+                    reject('Sorry about that, were not sure what happened! Please try again later.');
+                });
+            });
         });
     },
     getLeaderboard: function getLeaderboard() {
-        return fetch('/api/games', {
+        return fetch('/api/leaderboard', {
             method: 'get',
             credentials: 'include',
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
         }).then(function (response) {
-            return response.json();
+            return response.json().catch(function (error) {
+                //Error parsing json
+                return new Promise(function (resolve, reject) {
+                    reject('Sorry about that, were not sure what happened! Please try again later.');
+                });
+            });
         });
     }
 };
@@ -4434,6 +4444,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4453,7 +4467,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 email: '',
                 time: null,
                 results: []
-            })
+            }),
+            globalError: null
         };
     },
 
@@ -4468,7 +4483,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.gameDataTweets.length === this.numItemsMatched;
         },
         gameComplete: function gameComplete() {
-            return this.timeRemaining <= 0 || this.allItemsMatched;
+            return !this.globalError && (this.timeRemaining <= 0 || this.allItemsMatched);
         }
     },
 
@@ -4486,7 +4501,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.initDroppable();
             });
         }).catch(function (error) {
-            console.error(error);
+            _this.loading = false;
+            _this.globalError = error;
         });
     },
 
@@ -4669,6 +4685,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4677,7 +4697,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             loading: true,
-            games: []
+            games: [],
+            globalError: null
         };
     },
     mounted: function mounted() {
@@ -4689,7 +4710,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             _this.initHighlightedGame();
         }).catch(function (error) {
-            console.error(error);
+            _this.loading = false;
+            _this.globalError = error;
         });
     },
 
@@ -5323,7 +5345,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-spinner fa-spin fa-3x fa-fw"
   }), _vm._v(" "), _c('span', {
     staticClass: "sr-only"
-  }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _c('table', {
+  }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), (_vm.globalError) ? _c('div', {
+    staticClass: "alert alert-danger text-center",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_vm._v("\n      " + _vm._s(_vm.globalError) + "\n    ")]) : _vm._e(), _vm._v(" "), _c('table', {
     staticClass: "table table-striped"
   }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.games), function(game) {
     return _c('tr', {
@@ -5377,15 +5404,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "margin-top": "20px"
     }
-  }, [_vm._v("Twitter Match Game")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Twitter Match Game")]), _vm._v(" "), (!_vm.globalError) ? _c('p', {
     staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm._f("secsToMins")(_vm.timeRemaining)) + " Remaining")])])]), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._v(_vm._s(_vm._f("secsToMins")(_vm.timeRemaining)) + " Remaining")]) : _vm._e()])]), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "text-center"
   }, [_c('i', {
     staticClass: "fa fa-spinner fa-spin fa-3x fa-fw"
   }), _vm._v(" "), _c('span', {
     staticClass: "sr-only"
-  }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.gameDataTweets), function(item, index) {
+  }, [_vm._v("Loading...")])]) : _vm._e(), _vm._v(" "), (_vm.globalError) ? _c('div', {
+    staticClass: "alert alert-danger text-center",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_vm._v("\n      " + _vm._s(_vm.globalError) + "\n    ")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.gameDataTweets), function(item, index) {
     return (!_vm.loading) ? _c('div', {
       staticClass: "container game-container"
     }, [_c('div', {

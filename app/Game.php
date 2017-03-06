@@ -5,12 +5,11 @@ namespace App;
 use App;
 use App\Twitter\Twitter;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Game extends Model
 {
     protected $fillable = ['tweets', 'total_questions', 'num_correct_answers', 'email', 'name'];
-
-    protected $appends = ['rank'];
 
     public static function generate($numTweets = 10)
     {
@@ -44,7 +43,19 @@ class Game extends Model
                 return $numCorrectAnswers;
             }, 0);
 
-        return $this->save();
+        $this->save();
+
+        //Update rank
+        //@TODO Temp doing this in PHP, ideally done in MySQL but SQLite doesn't support temporary variables... (i.e... SET @rank := 0;)
+        self::orderBy('num_correct_answers', 'desc')
+            ->orderBy('time', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->each(function($game, $index) {
+                $game->rank = $index + 1;
+                $game->save();
+            });
+
+        return $this->fresh();
     }
 
     public function getTweetsAttribute($value)
@@ -57,20 +68,11 @@ class Game extends Model
         return json_decode($value, true);
     }
 
-    //Bigger time is better - means it took them less time to solve
-    public function getRankAttribute()
-    {
-        return self::where('num_correct_answers', '>', $this->num_correct_answers)
-            ->orWhere(function ($query) {
-                $query->where('num_correct_answers', $this->num_correct_answers)
-                      ->where('time', '>', $this->time);
-            })->count() + 1;
-    }
-
     public static function topTenRankedGames()
     {
         return self::orderBy('num_correct_answers', 'desc')
             ->orderBy('time', 'desc')
+            ->orderBy('created_at', 'asc')
             ->limit(10)
             ->get();
     }

@@ -12,6 +12,10 @@
             <span class="sr-only">Loading...</span>
         </div>
 
+        <div class="alert alert-danger text-center" role="alert" v-if="globalError">
+          {{ globalError }}
+        </div>
+
         <table class="table table-striped">
             <thead class="thead-inverse">
                 <tr>
@@ -43,6 +47,7 @@
             return {
                 loading: true,
                 games: [],
+                globalError: null
             };
         },
 
@@ -53,7 +58,8 @@
 
                 this.initHighlightedGame();
             }).catch(error => {
-                console.error(error);
+                this.loading = false;
+                this.globalError = error;
             });
         },
 
