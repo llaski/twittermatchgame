@@ -49,8 +49,10 @@ class SubmitResultsTest extends TestCase
 
         $response->assertStatus(200)
             ->assertExactJson([
+                'id' => $game->id,
                 'rank' => 1,
-                'email' => 'johndoe@example.com',
+                'num_correct_answers' => 5,
+                'total_questions' => 10,
                 'name' => 'John Doe',
                 'time' => 4 * 60,
             ]);
@@ -90,8 +92,10 @@ class SubmitResultsTest extends TestCase
 
         $response->assertStatus(200)
             ->assertExactJson([
+                'id' => $game->id,
                 'rank' => 1,
-                'email' => 'johndoe@example.com',
+                'num_correct_answers' => 10,
+                'total_questions' => 10,
                 'name' => 'John Doe',
                 'time' => 5 * 59
             ]);
@@ -132,8 +136,10 @@ class SubmitResultsTest extends TestCase
 
         $response->assertStatus(200)
             ->assertExactJson([
+                'id' => $game->id,
                 'rank' => 1,
-                'email' => 'johndoe@example.com',
+                'num_correct_answers' => 10,
+                'total_questions' => 10,
                 'name' => 'John Doe',
                 'time' => 5 * 50
             ]);

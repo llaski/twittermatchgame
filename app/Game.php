@@ -66,4 +66,12 @@ class Game extends Model
                       ->where('time', '>', $this->time);
             })->count() + 1;
     }
+
+    public static function topTenRankedGames()
+    {
+        return self::orderBy('num_correct_answers', 'desc')
+            ->orderBy('time', 'desc')
+            ->limit(10)
+            ->get();
+    }
 }

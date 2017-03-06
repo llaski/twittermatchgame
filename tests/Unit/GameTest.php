@@ -143,4 +143,26 @@ class GameTest extends TestCase
         $this->assertEquals(2, $gameWithRankTwo->rank);
         $this->assertEquals(1, $gameWithRankOne->rank);
     }
+
+    /**
+     * @test
+     */
+    function get_top_10_ranked_games()
+    {
+        factory(Game::class)->states('completed')->times(10)->create([
+            'time' => 5 * 55
+        ]);
+
+        factory(Game::class)->states('completed')->times(10)->create([
+            'time' => 5 * 56
+        ]);
+
+        $games = Game::topTenRankedGames();
+
+        $this->assertCount(10, $games);
+
+        foreach ($games as $game) {
+            $this->assertLessThanOrEqual(10, $game->rank);
+        }
+    }
 }

@@ -12,8 +12,12 @@
 */
 
 Route::get('/', 'PagesController@home');
+Route::get('/game', function () { return redirect('/'); });
+Route::get('/leaderboard', 'PagesController@home');
+
 
 Route::group(['prefix' => 'api'], function () {
+    Route::get('games', 'GamesController@index');
     Route::post('games', 'GamesController@store');
     Route::put('games/{id}', 'GamesController@update');
 });

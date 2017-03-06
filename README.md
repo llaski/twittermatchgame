@@ -1,25 +1,5 @@
 # twittermatchgame
 
-Basic version
-
-- one time game
-
-- go to site
-- view instructions and press start button
-- play game
-    - list of twitter handles on one side and tweets on the other
-    - user needs to match them
-        - drag and drop
-        - automatically shows if its wrong or right
-        - wrong - items stay where they are
-        - right - handle links to tweet and its no longer draggable
-    - Once all are complete, show # of attempts needed to complete matches
-    - enter name/email for score
-
-## Frontend Development
-
-I want to be able to run JavaScript tests on the command line
-
 ## Backend Features
 
 - [x] Serve home page
@@ -28,19 +8,18 @@ I want to be able to run JavaScript tests on the command line
 
 ## Frontend Features
 
-- [ ] click start btn
-- [ ] request twitter data
-- [ ] display twitter data (and mix it up)
-- [ ] drag n drop
-    - [] Drag Handle element
-    - [] Change color of tweet when handle element is over it - saying you can drop it there
-    - [] Allow handle to be dropped on tweet
-    - [] If drop is a match, merge data and turn background green
-    - [] If drop was incorrect, put handle element back and flash message saying incorrect for 3 seconds
-- [ ] keep track of # of wrong matches
-- [ ] display results once all handles are complete
+- [X] Click start btn
+- [X] Request game data
+- [X] Display game data (and mix it up)
+- [X] Drag n Drop handles onto tweets
+- [X] Display form once all items are matched or once timer runs out
+- [X] View Leaderboard
 
-- [ ] jQuery Version w/ tests
-- [ ] Vue.js Version w/ tests
-- [ ] ReactJS Version w/ tests
-- [ ] ReactJS/Redux Version w/ tests
+## Cleanup/Add Ons
+
+- [ ] Store rank in database and update on game submission instead of always needing to query for it
+- [ ] Visual error message instead of console.error for api requests
+- [ ] Instead of fetching twitter data on every game, create a cron job that gathers data for the top 100 accounts and stores it locally every hour to use for game data
+- [ ] Add JS Tests
+- [ ] Better Visual Design
+- [ ] Navigation to always view leaderboard w/out needing to play a game

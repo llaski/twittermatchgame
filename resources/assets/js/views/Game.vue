@@ -54,6 +54,7 @@
     import API from '../API';
     import Form from '../lib/Form';
     import Arr from '../lib/Arr';
+    import queryString from 'query-string';
 
     export default {
         data() {
@@ -179,14 +180,12 @@
 
                 this.form.time = this.timeRemaining;
 
-                console.log(this.form.results);
                 this.form.submit(`/api/games/${this.gameDataId}`, 'PUT')
                     .then(responseData => {
-                        console.log(responseData);
-                        this.$router.push('leaderboard');
+                        this.$router.push(`leaderboard?${queryString.stringify(responseData)}`);
                     }).catch(error => {
                         console.log(error);
-                    })
+                    });
             }
         },
 
