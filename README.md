@@ -19,6 +19,10 @@
 
 - [ ] Store rank in database and update on game submission instead of always needing to query for it
 - [ ] Visual error message instead of console.error for api requests
+- [ ] Setup live site
+
+-----
+
 - [ ] Instead of fetching twitter data on every game, create a cron job that gathers data for the top 100 accounts and stores it locally every hour to use for game data
 - [ ] Add JS Tests
 - [ ] Better Visual Design
