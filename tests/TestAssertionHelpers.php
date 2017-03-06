@@ -51,7 +51,7 @@ trait TestAssertionHelpers {
                 }
             } elseif (is_array($value)) {
                 $this->assertArrayHasKey($key, $responseData);
-                $response->assertJson($structure[$key], $responseData[$key]);
+                $this->assertArrayItemsHaveKeys($responseData[$key], $structure[$key]);
             } else {
                 $this->assertArrayHasKey($value, $responseData);
             }

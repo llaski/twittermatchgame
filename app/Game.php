@@ -10,7 +10,7 @@ class Game extends Model
 {
     protected $fillable = ['tweets', 'total_questions', 'num_correct_answers', 'email', 'name'];
 
-    protected $appends = ['percentage_correct'];
+    protected $appends = ['rank'];
 
     public static function generate($numTweets = 10)
     {
@@ -22,11 +22,12 @@ class Game extends Model
         ]);
     }
 
-    public function finalizeResults(array $answers, string $email, string $name)
+    public function finalizeResults(array $answers, string $email, string $name, int $time)
     {
         $this->answers = json_encode($answers);
         $this->email = $email;
         $this->name = $name;
+        $this->time = $time;
 
         //Determine what answers are right
         $this->num_correct_answers = collect($answers)
@@ -56,8 +57,13 @@ class Game extends Model
         return json_decode($value, true);
     }
 
-    public function getPercentageCorrectAttribute()
+    //Bigger time is better - means it took them less time to solve
+    public function getRankAttribute()
     {
-        return round($this->num_correct_answers / $this->total_questions, 2) * 100;
+        return self::where('num_correct_answers', '>', $this->num_correct_answers)
+            ->orWhere(function ($query) {
+                $query->where('num_correct_answers', $this->num_correct_answers)
+                      ->where('time', '>', $this->time);
+            })->count() + 1;
     }
 }

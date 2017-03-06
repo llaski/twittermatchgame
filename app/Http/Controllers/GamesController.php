@@ -12,22 +12,9 @@ class GamesController extends Controller
     {
         $game = Game::generate();
 
-        //Cleanup
-        $tweets = collect($game->tweets)->reduce(function($carry, $tweet){
-            return $carry + [$tweet['handle'] => $tweet['tweet']];
-        }, []);
-
-        $keys = array_keys($tweets);
-        shuffle($keys);
-
-        $randomizedTweets = array();
-        foreach ($keys as $key) {
-            $randomizedTweets[$key] = $tweets[$key];
-        }
-
         return response()->json([
             'id' => $game->id,
-            'tweets' => $randomizedTweets
+            'tweets' => $game->tweets
         ], 201);
     }
 
@@ -38,15 +25,17 @@ class GamesController extends Controller
         $this->validate(request(), [
             'results' => 'required|array|size:' . $game->total_questions,
             'email' => 'required|email',
-            'name' => 'required|min:2'
+            'name' => 'required|min:2',
+            'time' => 'required|numeric|min:0|max:300'
         ]);
 
-        $game->finalizeResults(request('results'), request('email'), request('name'));
+        $game->finalizeResults(request('results'), request('email'), request('name'), request('time'));
 
         return response()->json([
-            'total_questions' => (int) $game->total_questions,
-            'num_correct_answers' => (int) $game->num_correct_answers,
-            'percentage_correct' => (int) $game->percentage_correct
+            'rank' => (int) $game->rank,
+            'email' => (string) $game->email,
+            'name' => (string) $game->name,
+            'time' => (int) $game->time,
         ]);
     }
 }

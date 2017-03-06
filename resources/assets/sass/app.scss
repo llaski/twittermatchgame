@@ -9,9 +9,18 @@
 
 .handle-item {
     font-size: 1.5rem;
-    background: #4099FF;
+    background: #0275d8;
+}
+
+.tweet-item {
+    background: #5bc0de;
 }
 
 .drag-item p {
     margin: 0;
+}
+
+.matched {
+    flex-direction: column;
+    background: #5cb85c;
 }

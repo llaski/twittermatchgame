@@ -32,6 +32,11 @@ I want to be able to run JavaScript tests on the command line
 - [ ] request twitter data
 - [ ] display twitter data (and mix it up)
 - [ ] drag n drop
+    - [] Drag Handle element
+    - [] Change color of tweet when handle element is over it - saying you can drop it there
+    - [] Allow handle to be dropped on tweet
+    - [] If drop is a match, merge data and turn background green
+    - [] If drop was incorrect, put handle element back and flash message saying incorrect for 3 seconds
 - [ ] keep track of # of wrong matches
 - [ ] display results once all handles are complete
 

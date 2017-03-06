@@ -27,7 +27,7 @@ class FakeTwitter implements Twitter {
         ],
         [
             'handle' => '@golf_com',
-            'tweet' => 'Welcome to the new and improved http://GOLF.com , where the game has never looked better - http://bit.ly/2k2PvhA '
+            'tweet' => 'Welcome to the new and improved http://GOLF.com , where the game has never looked better - http://bit.ly/2k2PvhA'
         ],
         [
             'handle' => '@McIlroyRory',
@@ -43,7 +43,7 @@ class FakeTwitter implements Twitter {
         ],
         [
             'handle' => '@TrackManGolf',
-            'tweet' => 'Congratulations to @DJohnsonPGA #1 in the World! '
+            'tweet' => 'Congratulations to @DJohnsonPGA #1 in the World!'
         ],
     ];
 

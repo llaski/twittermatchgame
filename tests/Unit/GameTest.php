@@ -57,12 +57,12 @@ class GameTest extends TestCase
 
         $game->finalizeResults([
             '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.'
-        ], 'johndoe@example.com', 'John Doe');
+        ], 'johndoe@example.com', 'John Doe', 5 * 60);
 
         $this->assertIsJSON($game->getOriginal('answers'));
         $this->assertCount(1, $game->answers);
         $this->assertEquals(1, $game->num_correct_answers);
-        $this->assertEquals(100, $game->percentage_correct);
+        $this->assertEquals(5 * 60, $game->time);
     }
 
     /**
@@ -75,11 +75,72 @@ class GameTest extends TestCase
         $game->finalizeResults([
             '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
             '@incorrect' => 'this is not a correct answer'
-        ], 'johndoe@example.com', 'John Doe');
+        ], 'johndoe@example.com', 'John Doe', 5 * 60);
 
         $this->assertIsJSON($game->getOriginal('answers'));
         $this->assertCount(2, $game->answers);
         $this->assertEquals(1, $game->num_correct_answers);
-        $this->assertEquals(50, $game->percentage_correct);
+        $this->assertEquals(5 * 60, $game->time);
+    }
+
+    /**
+     * @test
+     */
+    function finalizing_results_where_game_rank_should_be_1()
+    {
+        $game = Game::generate(2);
+
+        $game->finalizeResults([
+            '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
+            '@incorrect' => 'this is not a correct answer'
+        ], 'johndoe@example.com', 'John Doe', 5 * 60);
+
+        $this->assertEquals(1, $game->rank);
+    }
+
+    /**
+     * @test
+     */
+    function finalizing_results_where_game_rank_should_be_2_with_same_num_answers()
+    {
+        $gameWithRankTwo = Game::generate(2);
+
+        $gameWithRankTwo->finalizeResults([
+            '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
+            '@PGATOUR' => 'Jerry Rice is pretty good at golf, too.'
+        ], 'johndoe@example.com', 'John Doe', 5 * 50);
+
+        $gameWithRankOne = Game::generate(2);
+
+        $gameWithRankOne->finalizeResults([
+            '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
+            '@PGATOUR' => 'Jerry Rice is pretty good at golf, too.'
+        ], 'johndoe@example.com', 'John Doe', 5 * 55);
+
+        $this->assertEquals(2, $gameWithRankTwo->rank);
+        $this->assertEquals(1, $gameWithRankOne->rank);
+    }
+
+    /**
+     * @test
+     */
+    function finalizing_results_where_game_rank_should_be_2_with_same_time()
+    {
+        $gameWithRankTwo = Game::generate(2);
+
+        $gameWithRankTwo->finalizeResults([
+            '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
+            '@PGATOUR' => ''
+        ], 'johndoe@example.com', 'John Doe', 5 * 60);
+
+        $gameWithRankOne = Game::generate(2);
+
+        $gameWithRankOne->finalizeResults([
+            '@BarackObama' => 'I read letters like these every single day. It was one of the best parts of the job – hearing from you.',
+            '@PGATOUR' => 'Jerry Rice is pretty good at golf, too.'
+        ], 'johndoe@example.com', 'John Doe', 5 * 60);
+
+        $this->assertEquals(2, $gameWithRankTwo->rank);
+        $this->assertEquals(1, $gameWithRankOne->rank);
     }
 }
