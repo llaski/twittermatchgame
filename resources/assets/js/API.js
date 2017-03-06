@@ -15,15 +15,12 @@ export default {
     },
 
     getLeaderboard() {
-        return fetch('/api/games', {
+        return fetch('/api/leaderboard', {
             method: 'get',
             credentials: 'include',
             headers: new Headers({
-                'Content-Type': 'application/json',
-                // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                'Content-Type': 'application/json'
             }),
-            // body: JSON.stringify({})
         }).then(response => response.json());
     }
-
 }

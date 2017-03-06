@@ -29,7 +29,7 @@ class GetGamesTest extends TestCase
 
         factory(Game::class)->states('completed')->times(10)->create();
 
-        $response = $this->json('GET', '/api/games');
+        $response = $this->json('GET', '/api/leaderboard');
 
         $response->assertStatus(200);
         $this->seeJsonStructure([

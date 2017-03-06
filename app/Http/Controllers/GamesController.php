@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class GamesController extends Controller
 {
-    public function index()
+    public function leaderboard()
     {
         $games = Game::topTenRankedGames();
 
