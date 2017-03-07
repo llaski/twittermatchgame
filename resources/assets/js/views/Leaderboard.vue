@@ -34,7 +34,9 @@
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-lg" @click="onPlayAgain">Play Again</button>
+        <div class="text-center">
+            <button class="btn-primary btn-lg" @click="onPlayAgain">Play Again</button>
+        </div>
     </div>
 </template>
 

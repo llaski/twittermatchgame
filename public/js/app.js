@@ -4689,6 +4689,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -5318,7 +5320,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "jumbotron text-center"
   }, [_c('h1', [_vm._v("Twitter Match Game")]), _vm._v(" "), _c('p', [_vm._v("The goal of the game is to match twitter handles to a tweet sent from the handle in the least # of tries. Think you have what it takes?")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-lg",
+    staticClass: "btn-primary btn-lg",
     on: {
       "click": _vm.startGame
     }
@@ -5358,12 +5360,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         'table-active': game.highlight
       }
     }, [_c('th', [_vm._v(_vm._s(game.rank))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.num_correct_answers) + " / " + _vm._s(game.total_questions))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("secsToMins")(game.time)))])])
-  }))]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-lg",
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "text-center"
+  }, [_c('button', {
+    staticClass: "btn-primary btn-lg",
     on: {
       "click": _vm.onPlayAgain
     }
-  }, [_vm._v("Play Again")])])
+  }, [_vm._v("Play Again")])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
